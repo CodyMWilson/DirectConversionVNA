@@ -1,0 +1,24 @@
+Workaround for using driverlib on Windows
+
+1) Make sure that the "driverlib app" is installed. Go to help, CSS App center. Select "MSPware" and hit "install software." When it asks you which libraries you want to install after relaunch, install all of them.
+2) Navigate to "Project->import CSS Project" select browse on "select search-directory" and navigate to \You\Documents\TI\msp430. If you don't have this file, attempt step one until you do.
+3) Continue to \You\Documents\TI\msp430\MSPWare_3_30_00_18\driverlib\examples\empty_projects\driverlib_empty_project\ and select the CSS option. Select Finish from the "...to Import" popup.
+4) Download a version of DirectConversionVNA-master
+5) Copy these files and paste them into the new driverlib_empty_project directory under \You\Documents\TI\workspace_v6_1\driverlib_empty_project. If it asks you if you would like to overwrite them, say "yes."
+	main
+	printf (source)
+	printf (header)
+	printfOverride
+	README
+	SRAM_DATA
+	startup_msp432p401r_css
+	system_msp432p401r
+6) Open msp432p401r and copy-paste the code into \You\Documents\TI\workspace_v6_1\driverlib_empty_project_ccs.cmd
+7) Right-click on your project name ([Active - Debug]). Select properties. Select Build->MSP432 Compiler->Include Options.
+8) Add three directories to #include search path at the bottom:
+	"You\Documents\TI\msp430\MSPWare_3_30_00_18\driverlib\driverlib\MSP432P4xx"
+	"You\Documents\TI\msp430\MSPWare_3_30_00_18\driverlib\inc"
+	"You\Documents\TI\workspace_v6_1\driverlib_empty_project\Debug"
+9) Push them to the top of the #include search path
+10) Check to see if your files look like the included ones.
+11) You should be finished!
