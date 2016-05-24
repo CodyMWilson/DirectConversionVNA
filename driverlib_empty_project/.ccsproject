@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?ccsproject version="1.0"?>
+<projectOptions>
+	<deviceVariant value="MSP432P401R"/>
+	<deviceFamily value="MSP432"/>
+	<deviceEndianness value="little"/>
+	<codegenToolVersion value="5.2.5"/>
+	<isElfFormat value="true"/>
+	<connection value="common/targetdb/connections/TIXDS110_Connection.xml"/>
+	<linkerCommandFile value="driverlib_empty_project_ccs.cmd"/>
+	<rts value="libc.a"/>
+	<createSlaveProjects value=""/>
+	<ignoreDefaultDeviceSettings value="true"/>
+	<origin value="Y:\Cody\Documents\TI\msp430\MSPWare_3_30_00_18\driverlib\examples\MSP432P4xx\empty_projects\driverlib_empty_project\ccs\empty_project.projectspec"/>
+	<templateProperties value="id=empty_project.projectspec.driverlib_empty_project,"/>
+	<isTargetManual value="false"/>
+</projectOptions>
