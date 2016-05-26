@@ -11,7 +11,7 @@
 // Run on Putty (COM4, 115200 baud)
 //Known issues: baud rate should be 4800 kBaud
 // Master clock frequency correct? 3 ot 48 MHz?
-
+// For debugging it would be nice to be able to change the frequency by pressing a button
 /******************************************************************************
  * 2016 WWU Direct Conversion VNA
  * Author: Rob Frohne
@@ -284,6 +284,11 @@ int main(void)
     GPIO_setAsOutputPin(
         GPIO_PORT_P1,
         GPIO_PIN0
+		);
+	// Set P3.5 to output direction
+	GPIO_setAsOutputPin(
+		GPIO_PORT_P3,
+		GPIO_PIN5
         );
 
 
@@ -325,7 +330,7 @@ int main(void)
 
 			//This tests the I2C for the versclock
      /* Enabling the FPU for floating point operation */
-/*    while(!initializeDDS())
+    while(!initializeDDS())
     {
     	for(i=0;i<100;i++);  //Wait to try again.
     }
@@ -341,8 +346,8 @@ int main(void)
     }
 
     setDDSFrequency(1000000); // Test the DDS out.
-    initCDCE();
-
+//    initCDCE();
+/*
     dumpI2C();
     printf("Dumping Versaclock RAM after setting to 1MHz.\n");
     printf("Address   Received    Written");
@@ -357,7 +362,7 @@ int main(void)
     setDDSFrequency(10000000);
     if(!updateVersaclockRegs(10000000))
     	printf("updateVersaClockRegs failed!\n");
-    dumpI2C();
+  //  dumpI2C();
 
     printf("Address,  Read,    Tried to Write\n");
     for (i=0;i<NUM_OF_CHANGED_REG_BYTES; i++)
@@ -368,13 +373,13 @@ int main(void)
     		if(RXData[PllClockRegisters.changedAddresses[i]]!=
     				PllClockRegisters.registerValues[12][i])
     			printf("VersaClock Registers did NOT match!\n");
-    }*/
-
+    }
+*/
     /* Main while loop */
 	while(1)
 	{
 
-		//printf("This is the simplist function there is! Just kidding. Frohne wrote it.!\n");
+		//printf("This is the simplist function there is!\n");
 
 	    // //Test LED light
 	    GPIO_toggleOutputOnPin(
@@ -386,8 +391,12 @@ int main(void)
 	    for(z=50000; z>0; z--);
 
 /*		Pulse the start of a conversion.	*/
-
+	    GPIO_toggleOutputOnPin(
+	        GPIO_PORT_P3,
+			GPIO_PIN5
+			);
 	    //Test VNA LED Output
+	   // GPIO_setOutputHighOnPin();
 		//MAP_GPIO_setOutputHighOnPin(GPIO_PORT_P3, GPIO_PIN5);
 
 		while(!MAP_ADC14_toggleConversionTrigger()){
@@ -397,11 +406,11 @@ int main(void)
 /* 		for(i=0;i<1000;i++){
 			temp = i*temp;
 		}*/
-		printf(EUSCI_A0_BASE,"\r\n Results are:\r\n");
+		printf("\r\n Results are:\r\n");
 		for(i=0; i<NUM_ADC14_CHANNELS; i++){
 			test[i] = resultsBuffer[i];
-			printf(EUSCI_A0_BASE,"ADC # %d  ",i);
-			printf(EUSCI_A0_BASE,"Result: %d\n",resultsBuffer[i]);
+			printf("ADC # %d  \r\n",i);
+			printf("Result: %d\n\r",resultsBuffer[i]);
 		}
 		//MAP_PCM_gotoLPM0();
 	}
@@ -452,36 +461,56 @@ int initializeADC(void){
      * Pin 5.5 is S11_Re, A0
      * Pin 5.4 is S11_Im, A1  */
 
+    //Zero-filling buffer ----test
+    memset(resultsBuffer, 0x00, 8);
 
+    	//Configure for Analog_in
     GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P5,
-             GPIO_PIN4| GPIO_PIN5, GPIO_TERTIARY_MODULE_FUNCTION);
+            GPIO_PIN4 | GPIO_PIN5, GPIO_TERTIARY_MODULE_FUNCTION);
     GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P4,
             GPIO_PIN5 | GPIO_PIN7, GPIO_TERTIARY_MODULE_FUNCTION);//updated
 
     /* Configuring ADC Memory (ADC_MEM0 - ADC_MEM3, with A12, A10, A5, A3
      * with no repeat) with VCC and VSS reference */
     if(!ADC14_configureMultiSequenceMode(ADC_MEM0, ADC_MEM3, false))
-    	return(0);
+    {
+    		printf("Failed to initialize multi sequence.\r\n");
+    		return(0);
+    }
     if(!ADC14_configureConversionMemory(ADC_MEM0,
             ADC_VREFPOS_AVCC_VREFNEG_VSS,
             ADC_INPUT_A0, ADC_NONDIFFERENTIAL_INPUTS))//updated for our board
-    		return(0);
+    {
+        		printf("Failed to initialize A0.\r\n");
+        		return(0);
+    }
     if(!MAP_ADC14_configureConversionMemory(ADC_MEM1,
             ADC_VREFPOS_AVCC_VREFNEG_VSS,
             ADC_INPUT_A1, ADC_NONDIFFERENTIAL_INPUTS))//updated
-    	return(0);
+    {
+        		printf("Failed to initialize A1.\r\n");
+        		return(0);
+    }
     if(!MAP_ADC14_configureConversionMemory(ADC_MEM2,
             ADC_VREFPOS_AVCC_VREFNEG_VSS,
             ADC_INPUT_A8, ADC_NONDIFFERENTIAL_INPUTS))
-    		return(0);
+    {
+        		printf("Failed to initialize A8.\r\n");
+        		return(0);
+    }
     if(!MAP_ADC14_configureConversionMemory(ADC_MEM3,
             ADC_VREFPOS_AVCC_VREFNEG_VSS,
             ADC_INPUT_A6, ADC_NONDIFFERENTIAL_INPUTS))
-    		return(0);
+    {
+        		printf("Failed to initialize A6.\r\n");
+        		return(0);
+    }
 
     /* Enabling the interrupt when a conversion on channel 3 (end of sequence)
      *  is complete and enabling conversions */
     ADC14_enableInterrupt(ADC_INT3);
+    printf("Initialized interrupts.\r\n");
+
 
     /* Enabling Interrupts */
     Interrupt_enableInterrupt(INT_ADC14);
@@ -490,11 +519,17 @@ int initializeADC(void){
      * convert.
      */
     if(!MAP_ADC14_enableSampleTimer(ADC_AUTOMATIC_ITERATION))
-    		return 0;
+    {
+        		printf("Failed to initialize enable sample timer.\r\n");
+        		return(0);
+    }
 
     /* Enable conversion */
     if(!MAP_ADC14_enableConversion())
-    	return 0;
+    {
+        		printf("Failed to enable conversion.\r\n");
+        		return(0);
+    }
 
     return 1;
 }
@@ -627,7 +662,7 @@ int initializeI2C(void)//Updated to our pinout
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P6,
             GPIO_PIN5 + GPIO_PIN4, GPIO_PRIMARY_MODULE_FUNCTION);
 
-    memset(RXData, 0x00, NUM_OF_REG_BYTES+0x10); // Start with 0 so we can see the changes.
+//    memset(RXData, 0x00, NUM_OF_REG_BYTES+0x10); // Start with 0 so we can see the changes.
 
     /* Initializing I2C Master to parameters in i2cConfig */
     I2C_initMaster(EUSCI_B1_BASE, &i2cConfig);
@@ -731,7 +766,7 @@ void writeVersaClockBlock(const uint8_t *firstDataPtr, uint8_t blockStart, uint8
 
     I2C_masterSendMultiByteStart(EUSCI_B1_BASE, blockStart); // Send the address.
 
-    printf("Versaclock block written");
+    printf("Versaclock block written\n\r");
 }
 
 
