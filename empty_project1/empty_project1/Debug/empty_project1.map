@@ -1,0 +1,417 @@
+******************************************************************************
+                  TI ARM Linker PC v15.12.1                    
+******************************************************************************
+>> Linked Fri Aug 19 18:52:09 2016
+
+OUTPUT FILE NAME:   <empty_project1.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 00002091
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  MAIN                  00000000   00040000  00002550  0003dab0  R  X
+  INFO                  00200000   00004000  00000000  00004000  R  X
+  SRAM_CODE             01000000   00010000  00000000  00010000  RW X
+  SRAM_DATA             20000000   00010000  00000285  0000fd7b  RW  
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000000    00000000    00002554   00002554    r-x
+  00000000    00000000    00000140   00000140    r-- .intvecs
+  00000140    00000140    000021de   000021de    r-x .text
+  00002320    00002320    000001be   000001be    r-- .const
+  000024e0    000024e0    00000074   00000074    r-- .cinit
+20000000    20000000    00000085   00000000    rw-
+  20000000    20000000    0000005c   00000000    rw- .data
+  2000005c    2000005c    00000029   00000000    rw- .bss
+2000fe00    2000fe00    00000200   00000000    rw-
+  2000fe00    2000fe00    00000200   00000000    rw- .stack
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.intvecs   0    00000000    00000140     
+                  00000000    00000140     startup_msp432p401r_ccs.obj (.intvecs:retain)
+
+.text      0    00000140    000021de     
+                  00000140    00000fb8     main.obj (.text)
+                  000010f8    00000328     system_msp432p401r.obj (.text)
+                  00001420    00000244     printf.obj (.text)
+                  00001664    0000021e     rtsv7M4_T_le_v4SPD16_eabi.lib : ll_div_t2.obj (.text)
+                  00001882    000001b6                                   : fd_add_t2.obj (.text)
+                  00001a38    000000f8                                   : s_floor.obj (.text)
+                  00001b30    000000e0     msp432p4xx_driverlib.lib : cs.o (.text:CS_initClockSignal)
+                  00001c10    000000c0     rtsv7M4_T_le_v4SPD16_eabi.lib : s_round.obj (.text)
+                  00001cd0    0000009c                                   : memcpy_t2.obj (.text)
+                  00001d6c    00000086                                   : fd_cmp_t2.obj (.text:__aeabi_cdcmple)
+                  00001df2    00000086                                   : fd_cmp_t2.obj (.text:__aeabi_cdrcmple)
+                  00001e78    0000007a                                   : memset_t2.obj (.text)
+                  00001ef2    00000002                                   : l_div0.obj (.text)
+                  00001ef4    00000070                                   : autoinit.obj (.text)
+                  00001f64    0000006a                                   : copy_decompress_rle.obj (.text)
+                  00001fce    00000002                                   : mpu_init.obj (.text)
+                  00001fd0    00000064     msp432p4xx_driverlib.lib : interrupt.o (.text:Interrupt_enableInterrupt)
+                  00002034    0000005c     rtsv7M4_T_le_v4SPD16_eabi.lib : fd_toull_t2.obj (.text)
+                  00002090    00000054                                   : boot.obj (.text)
+                  000020e4    00000054                                   : exit.obj (.text)
+                  00002138    0000004c                                   : cpy_tbl.obj (.text)
+                  00002184    00000044     msp432p4xx_driverlib.lib : adc14.o (.text:ADC14_getMultiSequenceResult)
+                  000021c8    00000040     rtsv7M4_T_le_v4SPD16_eabi.lib : ll_tofd_t2.obj (.text)
+                  00002208    00000024     msp432p4xx_driverlib.lib : cs.o (.text:CS_setDCOCenteredFrequency)
+                  0000222c    00000024                              : gpio.o (.text:GPIO_setAsOutputPin)
+                  00002250    00000024                              : uart.o (.text:UART_transmitData)
+                  00002274    00000018                              : wdt_a.o (.text:WDT_A_holdTimer)
+                  0000228c    00000018     rtsv7M4_T_le_v4SPD16_eabi.lib : args_main.obj (.text)
+                  000022a4    00000014     msp432p4xx_driverlib.lib : gpio.o (.text:GPIO_toggleOutputOnPin)
+                  000022b8    00000014     rtsv7M4_T_le_v4SPD16_eabi.lib : _lock.obj (.text)
+                  000022cc    00000012     startup_msp432p401r_ccs.obj (.text)
+                  000022de    00000002     rtsv7M4_T_le_v4SPD16_eabi.lib : startup.obj (.text)
+                  000022e0    00000010     msp432p4xx_driverlib.lib : i2c.o (.text:I2C_masterIsStopSent)
+                  000022f0    00000010                              : i2c.o (.text:I2C_masterReceiveMultiByteStop)
+                  00002300    0000000e     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_none.obj (.text:decompress:none)
+                  0000230e    00000006     msp432p4xx_driverlib.lib : i2c.o (.text:I2C_masterReceiveMultiByteNext)
+                  00002314    00000006     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_rle.obj (.text:decompress:rle24)
+                  0000231a    00000004                                   : pre_init.obj (.text)
+
+.const     0    00002320    000001be     
+                  00002320    00000080     msp432p4xx_driverlib.lib : adc14.o (.const:_ctlRegs)
+                  000023a0    00000064     main.obj (.const:PllClockRegisters)
+                  00002404    00000040     msp432p4xx_driverlib.lib : interrupt.o (.const)
+                  00002444    00000028     printf.obj (.const:dv)
+                  0000246c    00000024     main.obj (.const:uartConfig)
+                  00002490    0000001c     main.obj (.const:spiMasterConfig)
+                  000024ac    00000014     main.obj (.const:i2cConfig)
+                  000024c0    00000010     printf.obj (.const:.string:hex$1)
+                  000024d0    00000007     main.obj (.const:.string:$P$T0$2)
+                  000024d7    00000007     main.obj (.const:.string:$P$T1$3)
+
+.cinit     0    000024e0    00000074     
+                  000024e0    0000004d     (.cinit..data.load) [load image, compression = rle]
+                  0000252d    00000003     --HOLE-- [fill = 0]
+                  00002530    00000009     (.cinit..bss.load) [load image, compression = rle]
+                  00002539    00000003     --HOLE-- [fill = 0]
+                  0000253c    00000008     (__TI_handler_table)
+                  00002544    00000010     (__TI_cinit_table)
+
+.init_array 
+*          0    00000000    00000000     UNINITIALIZED
+
+.data      0    20000000    0000005c     UNINITIALIZED
+                  20000000    00000030     msp432p4xx_driverlib.lib : gpio.o (.data:GPIO_PORT_TO_BASE)
+                  20000030    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : exit.obj (.data:$O1$$)
+                  2000003c    00000008                                   : _lock.obj (.data:$O1$$)
+                  20000044    00000008     main.obj (.data)
+                  2000004c    00000008     main.obj (.data:resultsBuffer)
+                  20000054    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : stkdepth_vars.obj (.data)
+                  20000058    00000004     system_msp432p401r.obj (.data)
+
+.bss       0    2000005c    00000029     UNINITIALIZED
+                  2000005c    0000001c     main.obj (.bss:RXData)
+                  20000078    0000000d     main.obj (.bss)
+
+.stack     0    2000fe00    00000200     UNINITIALIZED
+                  2000fe00    00000200     --HOLE--
+
+MODULE SUMMARY
+
+       Module                        code   ro data   rw data
+       ------                        ----   -------   -------
+    .\
+       main.obj                      4024   198       57     
+       system_msp432p401r.obj        808    0         4      
+       printf.obj                    580    56        0      
+       startup_msp432p401r_ccs.obj   18     320       0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        5430   574       61     
+                                                             
+    C:/ti/msp/MSP432Ware_3_50_00_02/driverlib/driverlib/MSP432P4xx/ccs/msp432p4xx_driverlib.lib
+       cs.o                          260    0         0      
+       adc14.o                       68     128       0      
+       interrupt.o                   100    64        0      
+       gpio.o                        56     0         48     
+       i2c.o                         38     0         0      
+       uart.o                        36     0         0      
+       wdt_a.o                       24     0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        582    192       48     
+                                                             
+    C:\ti\ccsv6\tools\compiler\ti-cgt-arm_15.12.1.LTS\lib\rtsv7M4_T_le_v4SPD16_eabi.lib
+       ll_div_t2.obj                 542    0         0      
+       fd_add_t2.obj                 438    0         0      
+       fd_cmp_t2.obj                 268    0         0      
+       s_floor.obj                   248    0         0      
+       s_round.obj                   192    0         0      
+       memcpy_t2.obj                 156    0         0      
+       memset_t2.obj                 122    0         0      
+       autoinit.obj                  112    0         0      
+       copy_decompress_rle.obj       112    0         0      
+       exit.obj                      84     0         12     
+       fd_toull_t2.obj               92     0         0      
+       boot.obj                      84     0         0      
+       cpy_tbl.obj                   76     0         0      
+       ll_tofd_t2.obj                64     0         0      
+       _lock.obj                     20     0         8      
+       args_main.obj                 24     0         0      
+       copy_decompress_none.obj      14     0         0      
+       pre_init.obj                  4      0         0      
+       stkdepth_vars.obj             0      0         4      
+       l_div0.obj                    2      0         0      
+       mpu_init.obj                  2      0         0      
+       startup.obj                   2      0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        2658   0         24     
+                                                             
+       Stack:                        0      0         512    
+       Linker Generated:             0      110       0      
+    +--+-----------------------------+------+---------+---------+
+       Grand Total:                  8670   876       645    
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 00002544 records: 2, size/record: 8, table size: 16
+	.data: load addr=000024e0, load size=0000004d bytes, run addr=20000000, run size=0000005c bytes, compression=rle
+	.bss: load addr=00002530, load size=00000009 bytes, run addr=2000005c, run size=00000029 bytes, compression=rle
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 0000253c records: 2, size/record: 4, table size: 8
+	index: 0, handler: __TI_decompress_rle24
+	index: 1, handler: __TI_decompress_none
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address   name                           
+-------   ----                           
+0000024b  ADC14_IRQHandler               
+00002185  ADC14_getMultiSequenceResult   
+000020e5  C$$EXIT                        
+00001b31  CS_initClockSignal             
+00002209  CS_setDCOCenteredFrequency     
+20000044  DDSFrequency                   
+00000281  EUSCIB1_IRQHandler             
+00000217  EusciA0_ISR                    
+0000222d  GPIO_setAsOutputPin            
+000022a5  GPIO_toggleOutputOnPin         
+000022e1  I2C_masterIsStopSent           
+0000230f  I2C_masterReceiveMultiByteNext 
+000022f1  I2C_masterReceiveMultiByteStop 
+00001fd1  Interrupt_enableInterrupt      
+000023a0  PllClockRegisters              
+UNDEFED   SHT$$INIT_ARRAY$$Base          
+UNDEFED   SHT$$INIT_ARRAY$$Limit         
+20000058  SystemCoreClock                
+000010f9  SystemCoreClockUpdate          
+0000136d  SystemInit                     
+000014eb  System_printf                  
+00002251  UART_transmitData              
+4000480c  WDTCTL_SYM                     
+00002275  WDT_A_holdTimer                
+20010000  __STACK_END                    
+00000200  __STACK_SIZE                   
+00002544  __TI_CINIT_Base                
+00002554  __TI_CINIT_Limit               
+0000253c  __TI_Handler_Table_Base        
+00002544  __TI_Handler_Table_Limit       
+00001ef5  __TI_auto_init                 
+20000030  __TI_cleanup_ptr               
+00002301  __TI_decompress_none           
+00002315  __TI_decompress_rle24          
+20000034  __TI_dtors_ptr                 
+20000038  __TI_enable_exit_profile_output
+ffffffff  __TI_pprof_out_hndl            
+ffffffff  __TI_prof_data_size            
+ffffffff  __TI_prof_data_start           
+00000000  __TI_static_base__             
+00001d6d  __aeabi_cdcmpeq                
+00001d6d  __aeabi_cdcmple                
+00001df3  __aeabi_cdrcmple               
+00002035  __aeabi_d2ulz                  
+0000188d  __aeabi_dadd                   
+00001883  __aeabi_dsub                   
+000021c9  __aeabi_l2d                    
+00001ef3  __aeabi_ldiv0                  
+00001665  __aeabi_ldivmod                
+00001e79  __aeabi_memclr                 
+00001e79  __aeabi_memclr4                
+00001e79  __aeabi_memclr8                
+00001cd1  __aeabi_memcpy                 
+00001cd1  __aeabi_memcpy4                
+00001cd1  __aeabi_memcpy8                
+00001e7b  __aeabi_memset                 
+00001e7b  __aeabi_memset4                
+00001e7b  __aeabi_memset8                
+ffffffff  __binit__                      
+ffffffff  __c_args__                     
+00001fcf  __mpu_init                     
+2000fe00  __stack                        
+0000228d  _args_main                     
+00002091  _c_int00                       
+2000003c  _lock                          
+000022c7  _nop                           
+000022bf  _register_lock                 
+000022b9  _register_unlock               
+000022df  _system_post_cinit             
+0000231b  _system_pre_init               
+20000040  _unlock                        
+000020e9  abort                          
+ffffffff  binit                          
+00002139  copy_in                        
+00000c9d  debugCdceI2C                   
+000020f1  exit                           
+00001a39  floor                          
+00001a39  floorl                         
+00000141  gpioPinInit                    
+000024ac  i2cConfig                      
+000009c1  initCDCE                       
+000004ed  initializeADC                  
+00000415  initializeBackChannelUART      
+000003d3  initializeClocks               
+00000695  initializeDDS                  
+000007f5  initializeI2C                  
+00000000  interruptVectors               
+00000df1  main                           
+20000054  main_func_sp                   
+00001cd1  memcpy                         
+00001e81  memset                         
+0000062b  pulseFQ_UD                     
+00000671  pulse_DDS_RST                  
+0000064b  pulse_W_CLK                    
+00001453  putc                           
+00001433  puts                           
+000008f9  readRegs                       
+2000004c  resultsBuffer                  
+00001c11  round                          
+00001c11  roundl                         
+00001421  sendByte                       
+00000725  setDDSFrequency                
+00002490  spiMasterConfig                
+00000155  systemCommunicationInit        
+0000246c  uartConfig                     
+00000af1  updateVersaclockRegs           
+00000a41  writetoCDCE                    
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address   name                           
+-------   ----                           
+00000000  __TI_static_base__             
+00000000  interruptVectors               
+00000141  gpioPinInit                    
+00000155  systemCommunicationInit        
+00000200  __STACK_SIZE                   
+00000217  EusciA0_ISR                    
+0000024b  ADC14_IRQHandler               
+00000281  EUSCIB1_IRQHandler             
+000003d3  initializeClocks               
+00000415  initializeBackChannelUART      
+000004ed  initializeADC                  
+0000062b  pulseFQ_UD                     
+0000064b  pulse_W_CLK                    
+00000671  pulse_DDS_RST                  
+00000695  initializeDDS                  
+00000725  setDDSFrequency                
+000007f5  initializeI2C                  
+000008f9  readRegs                       
+000009c1  initCDCE                       
+00000a41  writetoCDCE                    
+00000af1  updateVersaclockRegs           
+00000c9d  debugCdceI2C                   
+00000df1  main                           
+000010f9  SystemCoreClockUpdate          
+0000136d  SystemInit                     
+00001421  sendByte                       
+00001433  puts                           
+00001453  putc                           
+000014eb  System_printf                  
+00001665  __aeabi_ldivmod                
+00001883  __aeabi_dsub                   
+0000188d  __aeabi_dadd                   
+00001a39  floor                          
+00001a39  floorl                         
+00001b31  CS_initClockSignal             
+00001c11  round                          
+00001c11  roundl                         
+00001cd1  __aeabi_memcpy                 
+00001cd1  __aeabi_memcpy4                
+00001cd1  __aeabi_memcpy8                
+00001cd1  memcpy                         
+00001d6d  __aeabi_cdcmpeq                
+00001d6d  __aeabi_cdcmple                
+00001df3  __aeabi_cdrcmple               
+00001e79  __aeabi_memclr                 
+00001e79  __aeabi_memclr4                
+00001e79  __aeabi_memclr8                
+00001e7b  __aeabi_memset                 
+00001e7b  __aeabi_memset4                
+00001e7b  __aeabi_memset8                
+00001e81  memset                         
+00001ef3  __aeabi_ldiv0                  
+00001ef5  __TI_auto_init                 
+00001fcf  __mpu_init                     
+00001fd1  Interrupt_enableInterrupt      
+00002035  __aeabi_d2ulz                  
+00002091  _c_int00                       
+000020e5  C$$EXIT                        
+000020e9  abort                          
+000020f1  exit                           
+00002139  copy_in                        
+00002185  ADC14_getMultiSequenceResult   
+000021c9  __aeabi_l2d                    
+00002209  CS_setDCOCenteredFrequency     
+0000222d  GPIO_setAsOutputPin            
+00002251  UART_transmitData              
+00002275  WDT_A_holdTimer                
+0000228d  _args_main                     
+000022a5  GPIO_toggleOutputOnPin         
+000022b9  _register_unlock               
+000022bf  _register_lock                 
+000022c7  _nop                           
+000022df  _system_post_cinit             
+000022e1  I2C_masterIsStopSent           
+000022f1  I2C_masterReceiveMultiByteStop 
+00002301  __TI_decompress_none           
+0000230f  I2C_masterReceiveMultiByteNext 
+00002315  __TI_decompress_rle24          
+0000231b  _system_pre_init               
+000023a0  PllClockRegisters              
+0000246c  uartConfig                     
+00002490  spiMasterConfig                
+000024ac  i2cConfig                      
+0000253c  __TI_Handler_Table_Base        
+00002544  __TI_CINIT_Base                
+00002544  __TI_Handler_Table_Limit       
+00002554  __TI_CINIT_Limit               
+20000030  __TI_cleanup_ptr               
+20000034  __TI_dtors_ptr                 
+20000038  __TI_enable_exit_profile_output
+2000003c  _lock                          
+20000040  _unlock                        
+20000044  DDSFrequency                   
+2000004c  resultsBuffer                  
+20000054  main_func_sp                   
+20000058  SystemCoreClock                
+2000fe00  __stack                        
+20010000  __STACK_END                    
+4000480c  WDTCTL_SYM                     
+ffffffff  __TI_pprof_out_hndl            
+ffffffff  __TI_prof_data_size            
+ffffffff  __TI_prof_data_start           
+ffffffff  __binit__                      
+ffffffff  __c_args__                     
+ffffffff  binit                          
+UNDEFED   SHT$$INIT_ARRAY$$Base          
+UNDEFED   SHT$$INIT_ARRAY$$Limit         
+
+[107 symbols]
